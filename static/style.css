@@ -1,0 +1,8 @@
+ul {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+ul li {
+  padding: 10px 5px;
+}

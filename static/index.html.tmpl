@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ .Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        margin: 0 3% 3%;
+        color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        line-height: 1.6;
+        font-weight: 300;
+        font-size: 1.3em;
+        background: #030712;
+      }
+
+      footer {
+        margin-top: 3em;
+        text-align: center;
+        font-size: 0.8em;
+      }
+
+      form {
+        margin-bottom: 5em;
+      }
+
+      table {
+        background-color: #111827;
+        border-radius: 40px;
+        padding: 20px;
+      }
+
+      pre {
+        background-color: #111827;
+        border-radius: 40px;
+        padding: 20px;
+        color: #c4b5fd;
+      }
+
+      pre .html {
+        color: #f87171;
+      }
+
+      pre .attr {
+        color: #eab308;
+      }
+
+      pre .pound {
+        color: #84cc16;
+      }
+
+      pre .value {
+        color: #67e8f9;
+      }
+
+      pre .brace {
+        color: #f0abfc;
+      }
+
+      input[type="file"] {
+        padding: 10px;
+        margin: 10px 0;
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      h1 {
+        line-height: 1.5em;
+        font-weight: 800;
+        font-size: 13em;
+        margin: 0;
+        padding: 0;
+      }
+
+      @media (max-width: 880px) {
+        h1 {
+          font-size: 10em;
+        }
+      }
+
+      @media (max-width: 685px) {
+        h1 {
+          font-size: 5em;
+        }
+      }
+
+      @supports (background-clip: text) {
+        h1 a {
+          background-image: linear-gradient(42deg, #2563eb 25%, #0ea5e9 42%);
+          /* background-image: linear-gradient(19deg, #c4b5fd 10%, #67e8f9 10%); */
+          /* background-image: linear-gradient(39deg, #e21143 20%, #ffb03a 50%); */
+          background-clip: text;
+          color: rgba(0, 0, 0, 0.2) !important;
+          text-decoration: underline;
+          filter: brightness(1.7);
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: #67e8f9;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:visited {
+        font-style: italic;
+      }
+
+      h2 {
+        font-size: 2em;
+        font-weight: normal;
+        margin: 2em 0 0.5em;
+        line-height: 1.2em;
+      }
+
+      h2:first-of-type {
+        margin-top: 0;
+      }
+
+      td,
+      th {
+        padding: 8px;
+        text-align: left;
+      }
+
+      td.number,
+      th.number {
+        text-align: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1><a href="/">{{ .Title }}</a></h1>
+    {{ if .ShowErrors }}
+      {{- $errorCount := len .Story.Errors -}}
+      <h2>
+        {{ if eq $errorCount 1 }}
+          1 error issue
+        {{ else }}
+          {{ $errorCount }} issues
+        {{ end }}
+        found.
+      </h2>
+
+      {{ if gt $errorCount 0 }}
+        <table>
+          <thead>
+            <tr>
+              <th class="number">Line</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range .Story.Errors }}
+              <tr>
+                <td class="number">{{ .Line }}</td>
+                <td>{{ .Message }}</td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+      {{ else }}
+        <p>Great job!</p>
+      {{ end }}
+    {{ else }}
+      <p>Some copy goes here...</p>
+    {{ end }}
+
+
+    <h2>Upload your Markdown file here to check for errors</h2>
+    <p>Your file is never stored on the server.</p>
+    TODO: include a screenshot
+    <form enctype="multipart/form-data" action="/upload" method="post">
+      <label>
+        Select your file
+        <input type="file" name="fileUpload" />
+      </label>
+
+      <input type="submit" value="Upload your file" />
+    </form>
+
+    <h2>Use this CSS to get nice-looking choice sections</h2>
+    TODO: include a screenshot
+    <pre>
+<span class="html">ul</span> <span class="brace">{</span>
+  <span class="attr">border</span>: <span class="value">2px</span> solid <span class="pound">#</span>ccc;
+  <span class="attr">border-radius</span>: <span class="value">5px</span>;
+<span class="brace">}</span>
+
+<span class="html">ul li</span> <span class="brace">{</span>
+  <span class="attr">padding</span>: <span class="value">10px 5px</span>;
+<span class="brace">}</span>
+</pre>
+
+    <footer>
+      Made with ❤️ by Jeffrey Chupp |
+      <a href="https://github.com/semanticart/squire-site"
+        >Source code / Report bugs</a
+      >
+    </footer>
+  </body>
+</html>
