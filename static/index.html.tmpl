@@ -178,12 +178,18 @@
     {{ if .ShowErrors }}
       {{- $errorCount := len .Errors -}}
       <h2>
-        {{ if eq $errorCount 1 }}
-          1 error issue
+        {{ if eq .CustomError "" }}
+          {{ if eq $errorCount 1 }}
+            1 error issue found.
+          {{ else }}
+            {{ $errorCount }} issues found.
+            {{ if eq $errorCount 0 }}
+              Great job! 😁
+            {{ end }}
+          {{ end }}
         {{ else }}
-          {{ $errorCount }} issues
+          {{ .CustomError }}
         {{ end }}
-        found.
       </h2>
 
       {{ if gt $errorCount 0 }}
@@ -203,8 +209,6 @@
             {{ end }}
           </tbody>
         </table>
-      {{ else }}
-        <p>Great job!</p>
       {{ end }}
     {{ else }}
       <h2 class="tagline">Write interactive stories in Markdown suitable for publishing in the Kindle marketplace.</h2>

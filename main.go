@@ -30,13 +30,25 @@ func executeTemplateToBytes(templateName string, data Page) []byte {
 }
 
 type Page struct {
-	Title      string
-	Story      squire.Story
-	ShowErrors bool
-	Errors     []squire.StoryError
+	Title       string
+	ShowErrors  bool
+	Errors      []squire.StoryError
+	CustomError string
 }
 
 var empty = map[string]string{}
+
+func renderUploadResponse(w http.ResponseWriter, errors []squire.StoryError, customError ...string) {
+	var customErr string
+	if len(customError) > 0 {
+		customErr = customError[0]
+	}
+
+	combinedStoryErrors := squire.CombinedStoryErrors{Errors: errors}
+
+	error := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire", Errors: combinedStoryErrors.Errors, ShowErrors: true, CustomError: customErr})
+	w.Write(error)
+}
 
 func main() {
 	bookStyleSheet, err := staticFiles.ReadFile("static/style.css")
@@ -44,7 +56,7 @@ func main() {
 		panic("Could not read the file: " + err.Error())
 	}
 
-	index := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire", Story: squire.Story{}})
+	index := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire"})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
@@ -58,7 +70,7 @@ func main() {
 
 			file, _, err := r.FormFile("fileUpload")
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
+				renderUploadResponse(w, []squire.StoryError{}, "Please choose a file to upload 🥺")
 				return
 			}
 			defer file.Close()
@@ -70,13 +82,16 @@ func main() {
 				return
 			}
 
-			story, err := squire.ParseStory(string(content))
+			_, err = squire.ParseStory(string(content))
 
-			var combinedStoryErrors *squire.CombinedStoryErrors
-			errors.As(err, &combinedStoryErrors)
+			if err != nil {
+				var combinedStoryErrors *squire.CombinedStoryErrors
+				errors.As(err, &combinedStoryErrors)
 
-			error := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire", Story: story, Errors: combinedStoryErrors.Errors, ShowErrors: true})
-			w.Write(error)
+				renderUploadResponse(w, combinedStoryErrors.Errors)
+			} else {
+				renderUploadResponse(w, []squire.StoryError{})
+			}
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		}
