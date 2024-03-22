@@ -3,13 +3,12 @@ package main
 import (
 	"bytes"
 	"embed"
+	"errors"
 	"fmt"
 	"html/template"
 	"io"
 	"net/http"
 	"os"
-	"strconv"
-	"strings"
 
 	"github.com/semanticart/squire/pkg"
 )
@@ -34,12 +33,7 @@ type Page struct {
 	Title      string
 	Story      squire.Story
 	ShowErrors bool
-	Errors     []Error
-}
-
-type Error struct {
-	Line    int
-	Message string
+	Errors     []squire.StoryError
 }
 
 var empty = map[string]string{}
@@ -78,26 +72,10 @@ func main() {
 
 			story, err := squire.ParseStory(string(content))
 
-			errors := make([]Error, 0)
+			var combinedStoryErrors *squire.CombinedStoryErrors
+			errors.As(err, &combinedStoryErrors)
 
-			if err != nil {
-				for _, e := range strings.Split(err.Error(), "\n") {
-					parts := strings.SplitN(e, ":", 2)
-					if len(parts) == 2 {
-						lineNumber, err := strconv.Atoi(parts[0])
-						if err == nil {
-							message := parts[1]
-							errors = append(errors, Error{Line: lineNumber, Message: message})
-						} else {
-							errors = append(errors, Error{Line: 0, Message: e})
-						}
-					} else {
-						errors = append(errors, Error{Line: 0, Message: e})
-					}
-				}
-			}
-
-			error := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire", Story: story, Errors: errors, ShowErrors: true})
+			error := executeTemplateToBytes("index.html.tmpl", Page{Title: "Squire", Story: story, Errors: combinedStoryErrors.Errors, ShowErrors: true})
 			w.Write(error)
 		default:
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
