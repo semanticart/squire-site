@@ -8,9 +8,10 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 
-	"github.com/semanticart/squire/pkg"
+	squire "github.com/semanticart/squire/pkg"
 )
 
 //go:embed static/*
@@ -50,6 +51,18 @@ func renderUploadResponse(w http.ResponseWriter, errors []squire.StoryError, cus
 	w.Write(error)
 }
 
+func referrerIsNotSelf(r *http.Request) bool {
+	referer := r.Header.Get("Referer")
+
+	refererURL, err := url.Parse(referer)
+
+	if err != nil {
+		return false
+	}
+
+	return refererURL.Host != r.Host
+}
+
 func main() {
 	bookStyleSheet, err := staticFiles.ReadFile("static/style.css")
 	if err != nil {
@@ -63,6 +76,11 @@ func main() {
 		case "GET":
 			w.Write([]byte(index))
 		case "POST":
+			if referrerIsNotSelf(r) {
+				http.Error(w, "Access denied", http.StatusForbidden)
+				return
+			}
+
 			if err := r.ParseMultipartForm(maxMemorySize); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -106,6 +124,6 @@ func main() {
 		port = "8080"
 	}
 
-	fmt.Println("Server started on http://localhost:8080")
+	fmt.Println("Server started on http://localhost:" + port + "/")
 	http.ListenAndServe(":"+port, nil)
 }
