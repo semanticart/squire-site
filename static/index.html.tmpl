@@ -1,258 +1,65 @@
-<!doctype html>
-<html>
-  <head>
-    <title>{{ .Title }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body {
-        margin: 0 3% 3%;
-        color: #f8fafc;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-        line-height: 1.6;
-        font-weight: 300;
-        font-size: 1.3em;
-        background: #030712;
-      }
-
-      footer {
-        margin-top: 3em;
-        text-align: center;
-        font-size: 0.8em;
-      }
-
-      form {
-        margin-bottom: 5em;
-      }
-
-      table {
-        background-color: #111827;
-        border-radius: 40px;
-        padding: 20px;
-      }
-
-      pre {
-        background-color: #111827;
-        border-radius: 40px;
-        padding: 20px;
-        color: #c4b5fd;
-        overflow-x: auto;
-      }
-
-      pre .html, .md .id {
-        color: #f87171;
-      }
-
-      pre .attr, .md .h1 {
-        color: #eab308;
-      }
-
-      pre .pound, .md .fm {
-        color: #84cc16;
-      }
-
-      pre .value, .md .choice {
-        color: #67e8f9;
-      }
-
-      pre .brace {
-        color: #f0abfc;
-      }
-
-      ul.md div {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      input[type="file"] {
-        padding: 10px;
-        margin: 10px 0;
-      }
-
-      input[type="submit"] {
-        padding: 10px 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      h1 {
-        line-height: 1.5em;
-        font-weight: 800;
-        font-size: 13em;
-        margin: 0;
-        padding: 0;
-      }
-
-      @media (max-width: 880px) {
-        h1 {
-          font-size: 10em;
-        }
-      }
-
-      @media (max-width: 685px) {
-        h1 {
-          font-size: 5em;
-        }
-
-        ul.md {
-          margin: 0;
-          padding: 0px 20px 0;
-        }
-
-        ul.md pre {
-          margin-left: -30px;
-          width: calc(100% + 40px);
-        }
-
-        pre {
-          padding: 10px;
-          border-radius: 0;
-        }
-
-        ul.md div {
-          margin-top: 10px;
-          flex-direction: column;
-          align-items: unset;
-          gap: 0px;
-        }
-      }
-
-      @supports (background-clip: text) {
-        h1 a, h2.tagline {
-          background-image: linear-gradient(42deg, #2563eb 25%, #0ea5e9 42%);
-          background-clip: text;
-          color: rgba(0, 0, 0, 0.2) !important;
-          filter: brightness(1.7);
-        }
-
-        h1 a {
-          text-decoration: underline;
-        }
-      }
-
-      a {
-        text-decoration: none;
-        color: #67e8f9;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      a:visited {
-        font-style: italic;
-      }
-
-      h2 {
-        font-size: 2em;
-        font-weight: normal;
-        margin: 2em 0 0.5em;
-        line-height: 1.2em;
-      }
-
-      h2:first-of-type {
-        margin-top: 0;
-      }
-
-      h2.tagline {
-        color: #0ea5e9;
-      }
-
-      td,
-      th {
-        padding: 8px;
-        text-align: left;
-      }
-
-      td.number,
-      th.number {
-        text-align: right;
-      }
-    </style>
-  </head>
-
-  <body>
-    <h1><a href="/">{{ .Title }}</a></h1>
-    {{ if .ShowErrors }}
-      {{- $errorCount := len .Errors -}}
-      <h2>
-        {{ if eq .CustomError "" }}
-          {{ if eq $errorCount 1 }}
-            1 error issue found.
-          {{ else }}
-            {{ $errorCount }} issues found.
-            {{ if eq $errorCount 0 }}
-              Great job! 😁
-            {{ end }}
-          {{ end }}
-        {{ else }}
-          {{ .CustomError }}
-        {{ end }}
-      </h2>
-
-      {{ if gt $errorCount 0 }}
-        <table>
-          <thead>
-            <tr>
-              <th class="number">Line</th>
-              <th>Message</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{ range .Errors }}
-              <tr>
-                <td class="number">{{ .Line }}</td>
-                <td>{{ .Msg }}</td>
-              </tr>
-            {{ end }}
-          </tbody>
-        </table>
-      {{ end }}
-    {{ else }}
-      <h2 class="tagline">Write interactive stories in Markdown suitable for publishing in the Kindle marketplace.</h2>
-    {{ end }}
-
-    <h2>Upload your Markdown file here to check for errors</h2>
-    <p>Your file is never stored on the server.</p>
-    <!-- TODO: include a screenshot -->
-    <form enctype="multipart/form-data" action="/" method="post">
-      <label>
-        Select your file
-        <input type="file" name="fileUpload" />
-      </label>
-
-      <input type="submit" value="Upload your file" />
-    </form>
-
-    <h2>Syntax Reference</h2>
+<h2>Syntax Reference</h2>
 
 <ul class="md">
-<li>The first line should begin with <strong>%</strong> and provide the story's title.<div><div>Example</div><pre class="fm">% The Bus That Couldn't Slow down</pre></div></li>
-<li>The second line should begin with <strong>%</strong> and provide the story's author. <div><div>Example</div><pre class="fm">% Homer Simpson</pre></div></li>
-<li>A new chapter begins with a <strong>#</strong> followed by text. It ends with a <strong>#{</strong>, a unique identifier for the chapter, and <strong>}</strong>. In the following example, the unique identifier is <strong>start</strong>.<div><div>Example</div><pre><span class="h1"># You are on a bus</span> <span class="id">{#start}</span></pre></div></li>
-<li>A chapter can have any number of lines of text. Separate paragraphs with an empty line between them.<div><div>Example</div>
-<pre>The bus is going 100 miles per hour.
+  <li>
+    The first line should begin with <strong class="fm">%</strong> and provide
+    the story's title.
+    <div><pre class="fm">% The Bus That Couldn't Slow down</pre></div>
+  </li>
+  <li>
+    The second line should begin with <strong class="fm">%</strong> and provide
+    the story's author.
+    <div><pre class="fm">% Homer Simpson</pre></div>
+  </li>
+  <li>
+    A new chapter begins with a <strong class="h1">#</strong> followed by text.
+    It ends with a <strong class="id">#{</strong>, a unique identifier for the
+    chapter, and <strong class="id">}</strong>. In the following example, the
+    unique identifier is <strong>start</strong>.
+    <div>
+      <pre><span class="h1"># You are on a bus</span> <span class="id">{#start}</span></pre>
+    </div>
+  </li>
+  <li>
+    A chapter can have any number of lines of text. Separate paragraphs with an
+    empty line between them.
+    <div>
+      <pre>
+The bus is going 100 miles per hour.
 You can't slow it down or it will explode.
 
 You think you've seen this in a movie
 before somewhere. Either way, this seems not great.
-</pre></div></li>
-<li>A chapter has one or more choices at the end. They may link to other chapters or to start over.<br />
-A choice starts with a dash followed by a space and then the choice text in square brackets. The destination for the choice is in parentheses and preceeded by a <strong>#</strong>. The destination is the unique identifier for the chapter. There are two choices in the example below. The last choice below would show the text "Jump out the window" and link to the chapter with the unique identifier <strong>jump-out-window</strong>.
+</pre
+      >
+    </div>
+  </li>
+  <li>
+    A chapter has one or more choices at the end. They may link to other
+    chapters or to start over.<br />
+    A choice starts with a dash (<strong class="choice">-</strong>) followed by
+    a space and then the choice text in square brackets (<strong class="choice"
+      >[</strong
+    >
+    and <strong class="choice">]</strong>). The destination for the choice is in
+    parentheses and preceeded by a <strong class="id">#</strong>. The
+    destination is the unique identifier for the chapter. There are two choices
+    in the example below. The last choice below would show the text "Jump out
+    the window" and link to the chapter with the unique identifier
+    <strong>jump-out-window</strong>.
 
-<div>
-<div>Example</div>
-<pre>
+    <div>
+      <pre>
 <span class="choice">- [Hit the breaks](<span class="id">#breaks</span>)</span>
 <span class="choice">- [Jump out the window](<span class="id">#jump-out-window</span>)</span>
 </pre>
-</div>
-</li>
+    </div>
+  </li>
 </ul>
 
-Here's an example story with only three chapters. The first chapter links to the other two chapters. The other two chapters link back to the first chapter to start over.
+Here's an example story with only three chapters. The first chapter links to the
+other two chapters. The other two chapters link back to the first chapter to
+start over.
 
 <pre class="md">
 <span class="fm">% The Bus That Couldn't Slow down</span>
@@ -289,10 +96,9 @@ What are the odds? You are safe and sound. The end.
 <h2>Converting to EPUB</h2>
 <p>...</p>
 
-
-    <h2>Use this CSS to get nice-looking choice sections</h2>
-    <!-- TODO: include a screenshot -->
-    <pre>
+<h2>Use this CSS to get nice-looking choice sections</h2>
+<!-- TODO: include a screenshot -->
+<pre>
 <span class="html">ul</span> <span class="brace">{</span>
   <span class="attr">border</span>: <span class="value">2px</span> solid <span class="pound">#</span>ccc;
   <span class="attr">border-radius</span>: <span class="value">5px</span>;
@@ -302,12 +108,3 @@ What are the odds? You are safe and sound. The end.
   <span class="attr">padding</span>: <span class="value">10px 5px</span>;
 <span class="brace">}</span>
 </pre>
-
-    <footer>
-      Made with ❤️ by Jeffrey Chupp |
-      <a href="https://github.com/semanticart/squire-site"
-        >Source code / Report bugs</a
-      >
-    </footer>
-  </body>
-</html>
