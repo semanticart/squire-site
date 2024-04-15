@@ -12,6 +12,8 @@ github.com/semanticart/squire v0.0.0-20240415142735-d737058f5c4a h1:LOH7AfBYjOOI
 github.com/semanticart/squire v0.0.0-20240415142735-d737058f5c4a/go.mod h1:zdkdsp6KS3a7zLRpkjIKwwpaSlTdVPiUQrG92ppLd9A=
 github.com/semanticart/squire v0.0.1 h1:MQ5iid/iX2cfNmUG43nuhmmVzlbj8WuxEHSRnX90ze4=
 github.com/semanticart/squire v0.0.1/go.mod h1:zdkdsp6KS3a7zLRpkjIKwwpaSlTdVPiUQrG92ppLd9A=
+github.com/semanticart/squire v0.0.2-0.20240415192905-0a399ccf389b h1:33560yENk2owIvUycs3wXjz5NmXRZqRNj3ATRnbz4SY=
+github.com/semanticart/squire v0.0.2-0.20240415192905-0a399ccf389b/go.mod h1:zdkdsp6KS3a7zLRpkjIKwwpaSlTdVPiUQrG92ppLd9A=
 github.com/vincent-petithory/dataurl v1.0.0 h1:cXw+kPto8NLuJtlMsI152irrVw9fRDX8AbShPRpg2CI=
 github.com/vincent-petithory/dataurl v1.0.0/go.mod h1:FHafX5vmDzyP+1CQATJn7WFKc9CvnvxyvZy6I1MrG/U=
 golang.org/x/net v0.19.0 h1:zTwKpTd2XuCqf8huc7Fo2iSy+4RHPd10s4KzeTnVr1c=

@@ -33,6 +33,20 @@ pre {
   overflow-x: auto;
 }
 
+table pre {
+  padding: 0 10px 0;
+  border-radius: 0px;
+  background-color: transparent;
+}
+
+table.md td, table.md th {
+  padding: 10px 20px
+}
+
+.dim {
+  opacity: 0.3;
+}
+
 pre .html,
 .md .id {
   color: #f87171;
@@ -68,11 +82,24 @@ input[type="file"] {
   margin: 10px 0;
 }
 
-input[type="submit"] {
+input[type="submit"], button[type="submit"],
+input::file-selector-button {
   padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
+  background: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+}
+
+input[type="submit"]:hover, button[type="submit"]:hover,
+input::file-selector-button:hover,
+input[type="submit"]:focus, button[type="submit"]:focus,
+input::file-selector-button:focus {
+  background: #0ea5e9;
+  color: white;
+  border: 1px solid #0ea5e9;
 }
 
 h1 {
@@ -164,15 +191,22 @@ h2.tagline {
   color: #0ea5e9;
 }
 
-td,
-th {
-  padding: 8px;
+td, th {
   text-align: left;
+}
+
+table.errors td,
+table.errors th {
+  padding: 8px;
 }
 
 td.number,
 th.number {
   text-align: right;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #1f2937;
 }
 
 nav {
@@ -186,21 +220,31 @@ nav a {
   padding: 10px 20px;
   border-radius: 8px 8px 0 0;
   background: #030712;
-  color: #0ea5e9;
-  border: 1px solid #0ea5e9;
+  color: white;
+  border: 1px solid #2563eb;
   border-bottom: none;
 }
 
 nav a.active,
 nav a:hover {
-  background: #0ea5e9;
-  color: #030712;
-  border: 1px solid #0ea5e9;
+  background: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
   text-decoration: none;
 }
 
 nav a:hover:not(.active) {
-  animation: tab-animation 0.3s;
+  animation: tab-animation 0.2s;
+}
+
+@media (max-width: 685px) {
+  nav {
+    gap: 0.4em;
+  }
+
+  nav a {
+    padding: 5px;
+  }
 }
 
 @keyframes tab-animation {
@@ -209,12 +253,39 @@ nav a:hover:not(.active) {
     color: #0ea5e9;
   }
   to {
-    background-color: #0ea5e9;
-    color: #030712;
+    background-color: #2563eb;
+    color: white;
   }
 }
 
 main {
-  border-top: 1px solid #67e8f9;
+  border-top: 1px solid #2563eb;
   padding-top: 2em;
+}
+
+#subForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 320px;
+}
+
+#newsletter-signup div {
+  display: flex;
+  gap: 10px;
+  width: 320px;
+  margin: 10px 0;
+}
+
+#newsletter-signup label {
+  width: 100px;
+}
+
+#newsletter-signup input {
+  width: 200px;
+}
+
+#newsletter-signup + button {
+  align-self: flex-end;
+  max-width: 200px;
 }

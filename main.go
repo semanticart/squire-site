@@ -20,7 +20,7 @@ func main() {
 
 	http.HandleFunc("/", web.Index)
 	http.HandleFunc("/validator", web.Validator)
-	http.HandleFunc("/examples", web.Examples)
+	http.HandleFunc("/syntax", web.Syntax)
 	http.HandleFunc("/converter", web.Converter)
 
 	port := os.Getenv("PORT")

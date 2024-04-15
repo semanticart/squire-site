@@ -1,94 +1,68 @@
-<h2>Syntax Reference</h2>
+<h2>About</h2>
 
-<ul class="md">
-  <li>
-    The first line should begin with <strong class="fm">%</strong> and provide
-    the story's title.
-    <div><pre class="fm">% The Bus That Couldn't Slow down</pre></div>
-  </li>
-  <li>
-    The second line should begin with <strong class="fm">%</strong> and provide
-    the story's author.
-    <div><pre class="fm">% Homer Simpson</pre></div>
-  </li>
-  <li>
-    A new chapter begins with a <strong class="h1">#</strong> followed by text.
-    It ends with a <strong class="id">#{</strong>, a unique identifier for the
-    chapter, and <strong class="id">}</strong>. In the following example, the
-    unique identifier is <strong>start</strong>.
-    <div>
-      <pre><span class="h1"># You are on a bus</span> <span class="id">{#start}</span></pre>
-    </div>
-  </li>
-  <li>
-    A chapter can have any number of lines of text. Separate paragraphs with an
-    empty line between them.
-    <div>
-      <pre>
-The bus is going 100 miles per hour.
-You can't slow it down or it will explode.
+<p>
+  Squire aims to be the easiest way to publish interactive fiction where the
+  reader can adventure down branching narrative paths finding treasure, thrills,
+  danger, and anything else you can imagine.
+</p>
 
-You think you've seen this in a movie
-before somewhere. Either way, this seems not great.
-</pre
-      >
+<p>We're just getting started. Sign up to the newsletter for updates.</p>
+
+<div>
+  <form
+    class="js-cm-form"
+    id="subForm"
+    action="https://www.createsend.com/t/subscribeerror?description="
+    method="post"
+    data-id="191722FC90141D02184CB1B62AB3DC26C3DD6A90E072044B021975FA4F1D7ECF5ABEE4DA0E15D4E796495FBBAE02322D632C1D58F8BC27114FBC76E936EE06E6"
+  >
+    <div id="newsletter-signup">
+      <div>
+        <label for="fieldName">Name </label
+        ><input
+          aria-label="Name"
+          id="fieldName"
+          maxlength="200"
+          name="cm-name"
+        />
+      </div>
+      <div>
+        <label for="fieldEmail">Email </label
+        ><input
+          autocomplete="Email"
+          aria-label="Email"
+          class="js-cm-email-input qa-input-email"
+          id="fieldEmail"
+          maxlength="200"
+          name="cm-tltjdrh-tltjdrh"
+          required=""
+          type="email"
+        />
+      </div>
     </div>
-  </li>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+<script
+  type="text/javascript"
+  src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"
+></script>
+
+<h2>Examples</h2>
+
+<ul>
   <li>
-    A chapter has one or more choices at the end. They may link to other
-    chapters or to start over.<br />
-    A choice starts with a dash (<strong class="choice">-</strong>) followed by
-    a space and then the choice text in square brackets (<strong class="choice"
-      >[</strong
+    <a href="https://amzn.to/3xaGSsp" target="_blank"
+      >The Infinite River - Jeffrey Chupp</a
     >
-    and <strong class="choice">]</strong>). The destination for the choice is in
-    parentheses and preceeded by a <strong class="id">#</strong>. The
-    destination is the unique identifier for the chapter. There are two choices
-    in the example below. The last choice below would show the text "Jump out
-    the window" and link to the chapter with the unique identifier
-    <strong>jump-out-window</strong>.
-
-    <div>
-      <pre>
-<span class="choice">- [Hit the breaks](<span class="id">#breaks</span>)</span>
-<span class="choice">- [Jump out the window](<span class="id">#jump-out-window</span>)</span>
-</pre>
-    </div>
   </li>
 </ul>
 
-Here's an example story with only three chapters. The first chapter links to the
-other two chapters. The other two chapters link back to the first chapter to
-start over.
+<h2>Share your story!</h2>
 
-<pre class="md">
-<span class="fm">% The Bus That Couldn't Slow down</span>
-<span class="fm">% Homer Simpson</span>
-
-<span class="h1"># You are on a bus</span> <span class="id">{#start}</span>
-
-The bus is going 100 miles per hour.
-You can't slow it down or it will explode.
-
-You think you've seen this in a movie
-before somewhere. Either way, this seems not great.
-
-<span class="choice">- [Hit the breaks and find out if you are explosion-proof](<span class="id">#breaks</span>)</span>
-<span class="choice">- [Jump out the window](<span class="id">#jump-out-window</span>)</span>
-
-<span class="h1"># You hit the breaks</span> <span class="id">{#breaks}</span>
-
-Awh, beans. The bus explodes. You are dead.
-I guess you weren't explosion-proof after all.
-The end.
-
-<span class="choice">- [Start over](<span class="id">#start</span>)</span>
-
-<span class="h1"># You jump out the window</span> <span class="id">{#jump-out-window}</span>
-
-You jump out the window and land in a pile of
-hay that fell off the back of a truck.
-What are the odds? You are safe and sound. The end.
-
-<span class="choice">- [Start over](<span class="id">#start</span>)</span>
-</pre>
+<p>
+  <a href="mailto:jeffrey+squire-submission@semanticart.com"
+    >Email me a link your published story</a
+  >
+  and I'll add it to the list. Nothing overly bawdy or offensive, please. 😅
+</p>

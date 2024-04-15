@@ -14,3 +14,91 @@
     >
   </p>
 </form>
+
+<h2>What things are checked?</h2>
+
+<table class="md">
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Every story must have a title on the first line</td>
+      <td>
+        <pre class="fm">% The Bus That Couldn't Slow down</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Every story must have an author on the second line</td>
+      <td>
+        <pre class="fm">% Homer Simpson</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Every chapter must have a title</td>
+      <td>
+        <pre><span class="h1"># You are on a bus</span> <span class="id dim">{#start}</span></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Every chapter must have a unique id after a #</td>
+      <td>
+        <pre><span class="h1 dim"># You are on a bus</span> <span class="id">{#start}</span></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Every chapter should have one or more choices (or it is a dead-end)
+      </td>
+      <td>
+        <pre><span class="choice"
+  >- [Hit the breaks and find out if you are explosion-proof](<span
+    class="id"
+    >#breaks</span
+  >)</span
+>
+<span class="choice"
+  >- [Jump out the window](<span class="id">#jump-out-window</span
+  >)</span
+></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        A dead-end chapter is allowed if it is explicitly indicated with two
+        exclamation points
+      </td>
+      <td>
+        <pre><span class="h1 dim"># This is an intentional dead-end</span> <span class="id dim">{#some-id}</span><span class="dead-end"> !!</span></pre>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        A chapter cannot be unreachable. One or more choices must link to it.
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>A choice must have some text</td>
+      <td>
+        <span class="choice"
+          ><span class="dim">- [</span>Hit the breaks<span class="dim"
+            >](<span class="id">#breaks</span>)</span
+          ></span
+        >
+      </td>
+    </tr>
+    <tr>
+      <td>A choice must link to a valid chapter id after a #</td>
+      <td>
+        <span class="choice"
+          ><span class="dim">- [Hit the breaks](</span
+          ><span class="id">#breaks</span><span class="dim">)</span></span
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
