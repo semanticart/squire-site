@@ -2,7 +2,7 @@ module github.com/semanticart/squire-site
 
 go 1.22.1
 
-require github.com/semanticart/squire v0.0.0-20240415142735-d737058f5c4a
+require github.com/semanticart/squire v0.0.1
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect

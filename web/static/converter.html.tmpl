@@ -1,0 +1,33 @@
+{{ if ne .Download.Content "" }}
+  <p>
+    <a
+      href="data:application/octet-stream;base64,{{ .Download.Content }}"
+      download="{{ .Download.Name }}"
+      >Download your converted {{ .Download.Format }} story</a
+    >
+  </p>
+
+  {{ if .Download.Error }}
+    <p>Note that due to the above errors, this file may not be readable.</p>
+  {{ end }}
+{{ end }}
+
+
+<h2>Converter</h2>
+
+<form enctype="multipart/form-data" action="/converter" method="post">
+  <label>
+    Select your file
+    <input type="file" name="fileUpload" />
+  </label>
+
+  <input type="submit" value="Convert to EPUB" name="format-epub" />
+  <input type="submit" value="Convert to HTML" name="format-html" />
+</form>
+
+<p>
+  Your file is never stored on the server. If you prefer, you can use
+  <a href="https://github.com/semanticart/squire" target="_blank"
+    >the offline squire tool.</a
+  >
+</p>

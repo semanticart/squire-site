@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ .Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/web/static/site.css?v={{ .CSSVersion }}"
+    />
+  </head>
+
+  <body>
+    <h1><a href="/">Squire</a></h1>
+    <h2 class="tagline">
+      Write interactive stories in Markdown for publishing in the Kindle
+      marketplace.
+    </h2>
+
+    <nav>
+      <a href="/" {{ if eq .Id "index" }}class="active"{{ end }}>Home</a>
+      <a
+        href="/examples"
+        {{ if eq .Id "examples" }}class="active"{{ end }}
+        >Examples</a
+      >
+      <a
+        href="/validator"
+        {{ if eq .Id "validator" }}class="active"{{ end }}
+        >Validator</a
+      >
+      <a
+        href="/converter"
+        {{ if eq .Id "converter" }}class="active"{{ end }}
+        >Converter</a
+      >
+    </nav>
+
+    <main>
+      {{ if .Errors.Show }}
+        {{- $errorCount := len .Errors.StoryErrors -}}
+        <h2>
+          {{ if eq .Errors.CustomError "" }}
+            {{ if eq $errorCount 1 }}
+              1 error issue found.
+            {{ else }}
+              {{ $errorCount }} issues found.
+              {{ if eq $errorCount 0 }}
+                Great job! 😁
+              {{ end }}
+            {{ end }}
+          {{ else }}
+            {{ .Errors.CustomError }}
+          {{ end }}
+        </h2>
+
+        {{ if gt $errorCount 0 }}
+          <table>
+            <thead>
+              <tr>
+                <th class="number">Line</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{ range .Errors.StoryErrors }}
+                <tr>
+                  <td class="number">{{ .Line }}</td>
+                  <td>{{ .Msg }}</td>
+                </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        {{ end }}
+      {{ end }}
+
+      {{ .Content }}
+    </main>
+
+    <footer>
+      Made with ❤️ by Jeffrey Chupp |
+      <a href="https://github.com/semanticart/squire-site"
+        >Source code / Report bugs</a
+      >
+    </footer>
+  </body>
+</html>
